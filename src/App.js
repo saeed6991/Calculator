@@ -13,7 +13,7 @@ function App() {
     width: "98%",
     height: "14%",
     backgroundColor: "rgb(81, 122, 71)",
-    margin: "1% 1% 0% 1%",
+    margin: "2% 1% 0% 1%",
   };
   /*************************************************** */
   const divRowOneStyle = {
