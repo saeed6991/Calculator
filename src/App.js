@@ -1,6 +1,72 @@
-import React from "react";
+import React, { useState} from "react";
 
 function App() {
+  const [displayValue, setDisplayValue] = useState("");
+  const [orderValue, setOrderValue] = useState("");
+  const [prevOperator, setOperator] = useState("");
+  const handleButtonClick = (value) => {
+    if (value === "AC") {
+      setDisplayValue("0");
+    } else {
+      setDisplayValue(displayValue + value);
+    }
+
+    switch (value) {
+      case "AC":
+        setDisplayValue("");
+        setOrderValue("");
+        setOperator("=");
+        break;
+      case "/":
+        if (prevOperator == "=") {
+          var num1 = displayValue;
+        }
+        setDisplayValue(""); 
+        setOrderValue(num1);
+        setOperator("/");
+        break;
+      case "X":
+        if (prevOperator == "=") {
+          var num1 = displayValue;
+        }
+        setDisplayValue(""); 
+        setOrderValue(num1);
+        setOperator("X");
+        break;
+      case "-":
+        if (prevOperator == "=") {
+          var num1 = displayValue;
+        }
+        setDisplayValue(""); 
+        setOrderValue(num1);
+        setOperator("-");
+        break;
+      case "+":
+        if (prevOperator == "=") {
+          var num1 = displayValue;
+        }
+        setDisplayValue(""); 
+        setOrderValue(num1);
+        setOperator("+");
+        break;
+      case "=":
+        if (prevOperator == "=") {
+          setOrderValue(num1);
+        }
+        setDisplayValue(""); 
+        switch (prevOperator) {
+          case "+":
+            console.log(typeof num1)
+            setDisplayValue(num1+displayValue);
+
+            break;
+        }
+
+        setOperator("=");
+        break;
+    }
+  }
+
   const divContainerStyle = {
     width: "440px",
     height: "620px",
@@ -162,74 +228,79 @@ function App() {
     backgroundColor: "rgb(47, 47, 80)",
     margin: "0% 0% 0% 34%",
   };
+  /************************************************** */
+
 
   return (
     <div className="App">
       <div style={divContainerStyle}>
-        <div style={divDiplayRowStyle}></div>
+        <div style={divDiplayRowStyle}>
+          <div className="order">{orderValue}</div>
+          <div className="display">{displayValue}</div>
+        </div>
 
         <div style={divRowOneStyle}>
-          <div style={divACStyle} className="Button AC">
-            <p>AC</p>
+          <div style={divACStyle} className="Button AC" onClick={()=>handleButtonClick("AC")}>
+            <p>AC/ON</p>
           </div>
-          <div style={divDivisionStyle} className="Button">
+          <div style={divDivisionStyle} className="Button" onClick={()=>handleButtonClick("/")}>
             <p>/</p>
           </div>
-          <div style={divMultiplicationStyle} className="Button">
+          <div style={divMultiplicationStyle} className="Button" onClick={()=>handleButtonClick("X")}>
             <p>X</p>
           </div>
         </div>
 
         <div style={divRowTwoStyle}>
-          <div style={divSevenStyle} className="Button">
+          <div style={divSevenStyle} className="Button" onClick={()=>handleButtonClick("7")}>
             <p>7</p>
           </div>
-          <div style={divEightStyle} className="Button">
+          <div style={divEightStyle} className="Button" onClick={()=>handleButtonClick("8")}>
             <p>8</p>
           </div>
-          <div style={divNineStyle} className="Button">
+          <div style={divNineStyle} className="Button" onClick={()=>handleButtonClick("9")}>
             <p>9</p>
           </div>
-          <div style={divMinusStyle} className="Button">
+          <div style={divMinusStyle} className="Button" onClick={()=>handleButtonClick("-")}>
             <p>-</p>
           </div>
         </div>
 
         <div style={divRowThreeStyle}>
-          <div style={divFourStyle} className="Button">
+          <div style={divFourStyle} className="Button" onClick={()=>handleButtonClick("4")}>
             <p>4</p>
           </div>
-          <div style={divFiveStyle} className="Button">
+          <div style={divFiveStyle} className="Button" onClick={()=>handleButtonClick("5")}>
             <p>5</p>
           </div>
-          <div style={divSixtyle} className="Button">
+          <div style={divSixtyle} className="Button" onClick={()=>handleButtonClick("6")}>
             <p>6</p>
           </div>
-          <div style={divPlusStyle} className="Button">
+          <div style={divPlusStyle} className="Button" onClick={()=>handleButtonClick("+")}>
             <p>+</p>
           </div>
         </div>
 
         <div style={divRowFourStyle}>
-          <div style={divOneStyle} className="Button">
+          <div style={divOneStyle} className="Button" onClick={()=>handleButtonClick("1")}>
             <p>1</p>
           </div>
-          <div style={divTwoStyle} className="Button">
+          <div style={divTwoStyle} className="Button" onClick={()=>handleButtonClick("2")}>
             <p>2</p>
           </div>
-          <div style={divThreetyle} className="Button">
+          <div style={divThreetyle} className="Button" onClick={()=>handleButtonClick("3")}>
             <p>3</p>
           </div>
-          <div style={divEqualStyle} className="Button">
+          <div style={divEqualStyle} className="Button" onClick={()=>handleButtonClick("=")}>
             <p>=</p>
           </div>
         </div>
 
         <div style={divRowFiveStyle}>
-          <div style={divZeroStyle} className="Button">
+          <div style={divZeroStyle} className="Button" onClick={()=>handleButtonClick("0")}>
             <p>0</p>
           </div>
-          <div style={divDotStyle} className="Button">
+          <div style={divDotStyle} className="Button" onClick={()=>handleButtonClick(".")}>
             <p>.</p>
           </div>
         </div>
