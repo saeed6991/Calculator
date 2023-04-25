@@ -150,7 +150,15 @@ function App() {
         break;
       /*************OPERATORS********************** */
       case "/":
-        if (orderValue === "" || orderValue === "+" || orderValue === "-") {
+        if (equalPressed == "=") {
+          setDisplayValue("0");
+          setOrderValue(orderValue.match(/=([0-9]+)/)[1] + "/");
+          setEqualPressed("");
+        } else if (
+          orderValue === "" ||
+          orderValue === "+" ||
+          orderValue === "-"
+        ) {
         } else if (
           orderValue[orderValue.length - 1] == "/" ||
           orderValue[orderValue.length - 1] == "x" ||
@@ -163,9 +171,18 @@ function App() {
           setDisplayValue("0");
           setOperator("/");
         }
+
         break;
       case "X":
-        if (orderValue === "" || orderValue === "+" || orderValue === "-") {
+        if (equalPressed == "=") {
+          setDisplayValue("0");
+          setOrderValue(orderValue.match(/=([0-9]+)/)[1] + "x");
+          setEqualPressed("");
+        } else if (
+          orderValue === "" ||
+          orderValue === "+" ||
+          orderValue === "-"
+        ) {
         } else if (
           orderValue[orderValue.length - 1] == "/" ||
           orderValue[orderValue.length - 1] == "x" ||
@@ -180,7 +197,11 @@ function App() {
         }
         break;
       case "-":
-        if (
+        if (equalPressed == "=") {
+          setDisplayValue("0");
+          setOrderValue(orderValue.match(/=([0-9]+)/)[1] + "-");
+          setEqualPressed("");
+        } else if (
           orderValue[orderValue.length - 1] == "-" ||
           orderValue[orderValue.length - 1] == "+"
         ) {
@@ -192,7 +213,11 @@ function App() {
         }
         break;
       case "+":
-        if (
+        if (equalPressed == "=") {
+          setDisplayValue("0");
+          setOrderValue(orderValue.match(/=([0-9]+)/)[1] + "+");
+          setEqualPressed("");
+        } else if (
           orderValue[orderValue.length - 1] == "/" ||
           orderValue[orderValue.length - 1] == "x" ||
           orderValue[orderValue.length - 1] == "-" ||
@@ -229,17 +254,59 @@ function App() {
         break;
       /**************Equal************************** */
       case "=":
-        let firstNumber = orderValue
-          .split(/~[/+x-]+/)
-          .map((number) => parseFloat(number));
-        let numbers = orderValue
-          .split(/[/+x]+/)
-          .map((number) => parseFloat(number));
-        numbers.shift();
-        numbers.unshift(firstNumber[0]);
-        let operators = orderValue.match(/[+/x]/g);
-        operators = orderValue.match(/[+-/x]/g).filter((item) => { return item !== "."});
-        operators = operators.filter(item=> item !== "-")
+        let numbers = [];
+        let operators = [];
+        let numberString = "";
+        let minusSeen = false;
+        let numberStill = false;
+        let orderValueArray = orderValue.split("");
+        console.log(orderValueArray);
+        for (let i = orderValueArray.length; i >= 0; i--) {
+          switch (orderValueArray[i]) {
+            case "/":
+              if (numberString != "") {
+                numbers.push(parseFloat(numberString));
+              } else {
+                if (numbers[numbers.length - 1] < 0) {
+                  operators.shift();
+                }
+              }
+              numberString = "";
+              operators.push("/");
+              break;
+            case "x":
+              if (numberString != "") {
+                numbers.push(parseFloat(numberString));
+              } else {
+                if (numbers[numbers.length - 1] < 0) {
+                  operators.shift();
+                }
+              }
+              numberString = "";
+              operators.push("x");
+              break;
+            case "-":
+              numbers.push(parseFloat(numberString) * -1);
+              numberString = "";
+              operators.push("+");
+              break;
+            case "+":
+              numbers.push(parseFloat(numberString));
+              numberString = "";
+              operators.push("+");
+              break;
+            default:
+              numberString = orderValueArray[i] + numberString;
+              console.log(numberString);
+              if (i == 0) {
+                if (numberString) {
+                  numbers.push(parseFloat(numberString));
+                }
+              }
+          }
+        }
+        operators = operators.reverse();
+        numbers = numbers.reverse();
         console.log(numbers);
         console.log(operators);
         setOrderValue(orderValue + "=" + calculateResult(numbers, operators));
@@ -251,12 +318,16 @@ function App() {
 
   const calculateResult = (numbers, operators) => {
     let result;
-    for (let i = 0; i < numbers.length - 1; i = i + 1) {
-      console.log(result);
-      if (i == 0) {
-        result = doTheOperation(numbers[0], numbers[1], operators[i]);
-      } else {
-        result = doTheOperation(result, numbers[i + 1], operators[i]);
+    if (operators.length == 0) {
+      result = numbers[0];
+    } else {
+      for (let i = 0; i < numbers.length - 1; i = i + 1) {
+        console.log(result);
+        if (i == 0) {
+          result = doTheOperation(numbers[0], numbers[1], operators[i]);
+        } else {
+          result = doTheOperation(result, numbers[i + 1], operators[i]);
+        }
       }
     }
     console.log(result);
