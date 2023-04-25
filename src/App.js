@@ -1,72 +1,160 @@
-import React, { useState} from "react";
+import React, { useState,  } from "react";
 
 function App() {
-  const [displayValue, setDisplayValue] = useState("");
+  const [displayValue, setDisplayValue] = useState("0");
   const [orderValue, setOrderValue] = useState("");
-  const [prevOperator, setOperator] = useState("");
-  const handleButtonClick = (value) => {
-    if (value === "AC") {
-      setDisplayValue("0");
-    } else {
-      setDisplayValue(displayValue + value);
-    }
+  const [operator, setOperator] = useState("=");
+  const [number, setNumber] = useState("0");
+  const [beforeEqual, setBeforeEqual] = useState("");
 
+  const handleButtonClick = (value) => {
     switch (value) {
-      case "AC":
-        setDisplayValue("");
+      case "AC" :
+        setDisplayValue("0");
         setOrderValue("");
         setOperator("=");
         break;
-      case "/":
-        if (prevOperator == "=") {
-          var num1 = displayValue;
+      case "0":
+        setDisplayValue(displayValue + "0");
+        if ((displayValue.length == 1) && (displayValue == "0")) {
+          setOrderValue(orderValue);
+        } else {
+          setOrderValue(orderValue + "0");
         }
-        setDisplayValue(""); 
-        setOrderValue(num1);
-        setOperator("/");
+        if ((displayValue.length == 1) && (displayValue == "0")) {
+          setDisplayValue ("0");
+        }
+        break;
+      case "1":
+        setDisplayValue(displayValue + "1");
+        setOrderValue(orderValue + "1");
+        if ((displayValue.length == 1) && (displayValue == "0")) {
+          setDisplayValue ("1");
+        }
+        break;
+      case "2":
+        setDisplayValue(displayValue + "2");
+        setOrderValue(orderValue + "2");
+        if ((displayValue.length == 1) && (displayValue == "0")) {
+          setDisplayValue ("2");
+        }
+        break;
+      case "3":
+        setDisplayValue(displayValue + "3");
+        setOrderValue(orderValue + "3");
+        if ((displayValue.length == 1) && (displayValue == "0")) {
+          setDisplayValue ("3");
+        }
+        break;
+      case "4":
+        setDisplayValue(displayValue + "4");
+        setOrderValue(orderValue + "4");
+        if ((displayValue.length == 1) && (displayValue == "0")) {
+          setDisplayValue ("4");
+        }
+        break;
+      case "5":
+        setDisplayValue(displayValue + "5");
+        setOrderValue(orderValue + "5");
+        if ((displayValue.length == 1) && (displayValue == "0")) {
+          setDisplayValue ("5");
+        }
+        break;
+      case "6":
+        setDisplayValue(displayValue + "6");
+        setOrderValue(orderValue + "6");
+        if ((displayValue.length == 1) && (displayValue == "0")) {
+          setDisplayValue ("6");
+        }
+        break;
+      case "7":
+        setDisplayValue(displayValue + "7");
+        setOrderValue(orderValue + "7");
+        if ((displayValue.length == 1) && (displayValue == "0")) {
+          setDisplayValue ("7");
+        }
+        break;
+      case "8":
+        setDisplayValue(displayValue + "8");
+        setOrderValue(orderValue + "8");
+        if ((displayValue.length == 1) && (displayValue == "0")) {
+          setDisplayValue ("8");
+        }
+        break;
+      case "9":
+        setDisplayValue(displayValue + "9");
+        setOrderValue(orderValue + "9");
+        if ((displayValue.length == 1) && (displayValue == "0")) {
+          setDisplayValue ("9");
+        }
+        break;
+      /*************OPERATORS********************** */
+      case "/":
+        if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")||(orderValue[orderValue.length-1] == ".")){
+          setOrderValue(orderValue.slice(0, -1)+"/");
+        } else {
+          setOrderValue(orderValue + "/");
+          setDisplayValue("0");
+          setOperator("/");
+        }
         break;
       case "X":
-        if (prevOperator == "=") {
-          var num1 = displayValue;
+        if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")||(orderValue[orderValue.length-1] == ".")){
+          setOrderValue(orderValue.slice(0, -1)+"x");
+        } else {
+          setOrderValue(orderValue + "x");
+          setDisplayValue("0");
+          setOperator("x");
         }
-        setDisplayValue(""); 
-        setOrderValue(num1);
-        setOperator("X");
         break;
       case "-":
-        if (prevOperator == "=") {
-          var num1 = displayValue;
+        if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")||(orderValue[orderValue.length-1] == ".")){
+          setOrderValue(orderValue.slice(0, -1)+"-");
+        } else {
+          setOrderValue(orderValue + "-");
+          setDisplayValue("0");
+          setOperator("-");
         }
-        setDisplayValue(""); 
-        setOrderValue(num1);
-        setOperator("-");
         break;
       case "+":
-        if (prevOperator == "=") {
-          var num1 = displayValue;
+        if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")||(orderValue[orderValue.length-1] == ".")){
+          setOrderValue(orderValue.slice(0, -1)+"+");
+        } else {
+          setOrderValue(orderValue + "+");
+          setDisplayValue("0");
+          setOperator("+");
         }
-        setDisplayValue(""); 
-        setOrderValue(num1);
-        setOperator("+");
         break;
+      /*************Decimals************************ */
+      case ".":
+        if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")||(orderValue[orderValue.length-1] == ".")){
+          setDisplayValue(displayValue.slice(0, -1)+".");
+          if(!(displayValue.match(/[.]/))) {
+            setDisplayValue(displayValue.slice(0, -1)+".");
+            setOrderValue(orderValue.slice(0, -1)+".");
+          }
+        } else {
+          if(!(displayValue.match(/[.]/))) {
+            setOrderValue(orderValue+".");
+            setDisplayValue(displayValue+".");
+          }
+        }
+        break;
+      /**************Equal************************** */
       case "=":
-        if (prevOperator == "=") {
-          setOrderValue(num1);
-        }
-        setDisplayValue(""); 
-        switch (prevOperator) {
-          case "+":
-            console.log(typeof num1)
-            setDisplayValue(num1+displayValue);
-
-            break;
-        }
-
-        setOperator("=");
+        let numbers = orderValue.split(/[/+x-]+/).map(number=>parseFloat(number))
+        let operators=orderValue.match(/[+-/x]/g).filter(item=> item!==".");
+        console.log(numbers);
+        console.log(operators);
         break;
     }
-  }
+  };
 
+  const calculateResult = () => {
+    
+  };
+
+  /***************************************************************** */
   const divContainerStyle = {
     width: "440px",
     height: "620px",
@@ -230,77 +318,163 @@ function App() {
   };
   /************************************************** */
 
-
   return (
     <div className="App">
       <div style={divContainerStyle}>
         <div style={divDiplayRowStyle}>
           <div className="order">{orderValue}</div>
-          <div className="display">{displayValue}</div>
+          <div className="display" id="display">
+            {displayValue}
+          </div>
         </div>
 
         <div style={divRowOneStyle}>
-          <div style={divACStyle} className="Button AC" onClick={()=>handleButtonClick("AC")}>
+          <div
+            style={divACStyle}
+            className="Button AC"
+            id="clear"
+            onClick={() => handleButtonClick("AC")}
+          >
             <p>AC/ON</p>
           </div>
-          <div style={divDivisionStyle} className="Button" onClick={()=>handleButtonClick("/")}>
+          <div
+            style={divDivisionStyle}
+            className="Button"
+            id="divide"
+            onClick={() => handleButtonClick("/")}
+          >
             <p>/</p>
           </div>
-          <div style={divMultiplicationStyle} className="Button" onClick={()=>handleButtonClick("X")}>
+          <div
+            style={divMultiplicationStyle}
+            className="Button"
+            id="multiply"
+            onClick={() => handleButtonClick("X")}
+          >
             <p>X</p>
           </div>
         </div>
 
         <div style={divRowTwoStyle}>
-          <div style={divSevenStyle} className="Button" onClick={()=>handleButtonClick("7")}>
+          <div
+            style={divSevenStyle}
+            className="Button"
+            id="seven"
+            onClick={() => handleButtonClick("7")}
+          >
             <p>7</p>
           </div>
-          <div style={divEightStyle} className="Button" onClick={()=>handleButtonClick("8")}>
+          <div
+            style={divEightStyle}
+            className="Button"
+            id="eight"
+            onClick={() => handleButtonClick("8")}
+          >
             <p>8</p>
           </div>
-          <div style={divNineStyle} className="Button" onClick={()=>handleButtonClick("9")}>
+          <div
+            style={divNineStyle}
+            className="Button"
+            id="nine"
+            onClick={() => handleButtonClick("9")}
+          >
             <p>9</p>
           </div>
-          <div style={divMinusStyle} className="Button" onClick={()=>handleButtonClick("-")}>
+          <div
+            style={divMinusStyle}
+            className="Button"
+            id="subtract"
+            onClick={() => handleButtonClick("-")}
+          >
             <p>-</p>
           </div>
         </div>
 
         <div style={divRowThreeStyle}>
-          <div style={divFourStyle} className="Button" onClick={()=>handleButtonClick("4")}>
+          <div
+            style={divFourStyle}
+            className="Button"
+            id="four"
+            onClick={() => handleButtonClick("4")}
+          >
             <p>4</p>
           </div>
-          <div style={divFiveStyle} className="Button" onClick={()=>handleButtonClick("5")}>
+          <div
+            style={divFiveStyle}
+            className="Button"
+            id="five"
+            onClick={() => handleButtonClick("5")}
+          >
             <p>5</p>
           </div>
-          <div style={divSixtyle} className="Button" onClick={()=>handleButtonClick("6")}>
+          <div
+            style={divSixtyle}
+            className="Button"
+            id="six"
+            onClick={() => handleButtonClick("6")}
+          >
             <p>6</p>
           </div>
-          <div style={divPlusStyle} className="Button" onClick={()=>handleButtonClick("+")}>
+          <div
+            style={divPlusStyle}
+            className="Button"
+            id="add"
+            onClick={() => handleButtonClick("+")}
+          >
             <p>+</p>
           </div>
         </div>
 
         <div style={divRowFourStyle}>
-          <div style={divOneStyle} className="Button" onClick={()=>handleButtonClick("1")}>
+          <div
+            style={divOneStyle}
+            className="Button"
+            id="one"
+            onClick={() => handleButtonClick("1")}
+          >
             <p>1</p>
           </div>
-          <div style={divTwoStyle} className="Button" onClick={()=>handleButtonClick("2")}>
+          <div
+            style={divTwoStyle}
+            className="Button"
+            id="two"
+            onClick={() => handleButtonClick("2")}
+          >
             <p>2</p>
           </div>
-          <div style={divThreetyle} className="Button" onClick={()=>handleButtonClick("3")}>
+          <div
+            style={divThreetyle}
+            className="Button"
+            id="three"
+            onClick={() => handleButtonClick("3")}
+          >
             <p>3</p>
           </div>
-          <div style={divEqualStyle} className="Button" onClick={()=>handleButtonClick("=")}>
+          <div
+            style={divEqualStyle}
+            className="Button"
+            id="equals"
+            onClick={() => handleButtonClick("=")}
+          >
             <p>=</p>
           </div>
         </div>
 
         <div style={divRowFiveStyle}>
-          <div style={divZeroStyle} className="Button" onClick={()=>handleButtonClick("0")}>
+          <div
+            style={divZeroStyle}
+            className="Button"
+            id="zero"
+            onClick={() => handleButtonClick("0")}
+          >
             <p>0</p>
           </div>
-          <div style={divDotStyle} className="Button" onClick={()=>handleButtonClick(".")}>
+          <div
+            style={divDotStyle}
+            className="Button"
+            id="decimal"
+            onClick={() => handleButtonClick(".")}
+          >
             <p>.</p>
           </div>
         </div>

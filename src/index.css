@@ -1,3 +1,5 @@
+@import url("https://fonts.cdnfonts.com/css/calculator");
+
 body {
   margin: 0;
   font-family: "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
@@ -30,4 +32,16 @@ body {
 
 h1 {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.order {
+  font-family: "Calculator", sans-serif;
+  font-size: 30px;
+  text-align: right;
+}
+
+.display {
+  font-family: "Calculator", sans-serif;
+  font-size: 30px;
+  text-align: right;
 }
