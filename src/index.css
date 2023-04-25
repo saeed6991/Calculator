@@ -42,7 +42,8 @@ h1 {
 
 .display {
   font-family: "Calculator", sans-serif;
-  font-size: 30px;
+  font-size: 33px;
   text-align: right;
+  font-weight: bold;
 }
 

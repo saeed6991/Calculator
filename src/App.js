@@ -1,100 +1,163 @@
-import React, { useState,  } from "react";
+import React, { useState } from "react";
 
 function App() {
   const [displayValue, setDisplayValue] = useState("0");
   const [orderValue, setOrderValue] = useState("");
   const [operator, setOperator] = useState("=");
   const [number, setNumber] = useState("0");
-  const [beforeEqual, setBeforeEqual] = useState("");
+  const [equalPressed, setEqualPressed] = useState("");
 
   const handleButtonClick = (value) => {
     switch (value) {
-      case "AC" :
+      case "AC":
         setDisplayValue("0");
         setOrderValue("");
         setOperator("=");
         break;
       case "0":
+        if (equalPressed == "=") {
+          setDisplayValue("0");
+          setOrderValue("0");
+          setEqualPressed("");
+        }
         setDisplayValue(displayValue + "0");
-        if ((displayValue.length == 1) && (displayValue == "0")) {
+        if (displayValue.length == 1 && displayValue == "0") {
           setOrderValue(orderValue);
         } else {
           setOrderValue(orderValue + "0");
         }
-        if ((displayValue.length == 1) && (displayValue == "0")) {
-          setDisplayValue ("0");
+        if (displayValue.length == 1 && displayValue == "0") {
+          setDisplayValue("0");
         }
         break;
       case "1":
-        setDisplayValue(displayValue + "1");
-        setOrderValue(orderValue + "1");
-        if ((displayValue.length == 1) && (displayValue == "0")) {
-          setDisplayValue ("1");
+        if (equalPressed == "=") {
+          setDisplayValue("1");
+          setOrderValue("1");
+          setEqualPressed("");
+        } else {
+          setDisplayValue(displayValue + "1");
+          setOrderValue(orderValue + "1");
+          if (displayValue.length == 1 && displayValue == "0") {
+            setDisplayValue("1");
+          }
         }
         break;
       case "2":
-        setDisplayValue(displayValue + "2");
-        setOrderValue(orderValue + "2");
-        if ((displayValue.length == 1) && (displayValue == "0")) {
-          setDisplayValue ("2");
+        if (equalPressed == "=") {
+          setDisplayValue("2");
+          setOrderValue("2");
+          setEqualPressed("");
+        } else {
+          setDisplayValue(displayValue + "2");
+          setOrderValue(orderValue + "2");
+          if (displayValue.length == 1 && displayValue == "0") {
+            setDisplayValue("2");
+          }
         }
         break;
       case "3":
-        setDisplayValue(displayValue + "3");
-        setOrderValue(orderValue + "3");
-        if ((displayValue.length == 1) && (displayValue == "0")) {
-          setDisplayValue ("3");
+        if (equalPressed == "=") {
+          setDisplayValue("3");
+          setOrderValue("3");
+          setEqualPressed("");
+        } else {
+          setDisplayValue(displayValue + "3");
+          setOrderValue(orderValue + "3");
+          if (displayValue.length == 1 && displayValue == "0") {
+            setDisplayValue("3");
+          }
         }
+
         break;
       case "4":
-        setDisplayValue(displayValue + "4");
-        setOrderValue(orderValue + "4");
-        if ((displayValue.length == 1) && (displayValue == "0")) {
-          setDisplayValue ("4");
+        if (equalPressed == "=") {
+          setDisplayValue("4");
+          setOrderValue("4");
+          setEqualPressed("");
+        } else {
+          setDisplayValue(displayValue + "4");
+          setOrderValue(orderValue + "4");
+          if (displayValue.length == 1 && displayValue == "0") {
+            setDisplayValue("4");
+          }
         }
         break;
       case "5":
-        setDisplayValue(displayValue + "5");
-        setOrderValue(orderValue + "5");
-        if ((displayValue.length == 1) && (displayValue == "0")) {
-          setDisplayValue ("5");
+        if (equalPressed == "=") {
+          setDisplayValue("5");
+          setOrderValue("5");
+          setEqualPressed("");
+        } else {
+          setDisplayValue(displayValue + "5");
+          setOrderValue(orderValue + "5");
+          if (displayValue.length == 1 && displayValue == "0") {
+            setDisplayValue("5");
+          }
         }
         break;
       case "6":
-        setDisplayValue(displayValue + "6");
-        setOrderValue(orderValue + "6");
-        if ((displayValue.length == 1) && (displayValue == "0")) {
-          setDisplayValue ("6");
+        if (equalPressed == "=") {
+          setDisplayValue("6");
+          setOrderValue("6");
+          setEqualPressed("");
+        } else {
+          setDisplayValue(displayValue + "6");
+          setOrderValue(orderValue + "6");
+          if (displayValue.length == 1 && displayValue == "0") {
+            setDisplayValue("6");
+          }
         }
         break;
       case "7":
-        setDisplayValue(displayValue + "7");
-        setOrderValue(orderValue + "7");
-        if ((displayValue.length == 1) && (displayValue == "0")) {
-          setDisplayValue ("7");
+        if (equalPressed == "=") {
+          setDisplayValue("7");
+          setOrderValue("7");
+          setEqualPressed("");
+        } else {
+          setDisplayValue(displayValue + "7");
+          setOrderValue(orderValue + "7");
+          if (displayValue.length == 1 && displayValue == "0") {
+            setDisplayValue("7");
+          }
         }
         break;
       case "8":
-        setDisplayValue(displayValue + "8");
-        setOrderValue(orderValue + "8");
-        if ((displayValue.length == 1) && (displayValue == "0")) {
-          setDisplayValue ("8");
+        if (equalPressed == "=") {
+          setDisplayValue("8");
+          setOrderValue("8");
+          setEqualPressed("");
+        } else {
+          setDisplayValue(displayValue + "8");
+          setOrderValue(orderValue + "8");
+          if (displayValue.length == 1 && displayValue == "0") {
+            setDisplayValue("8");
+          }
         }
         break;
       case "9":
-        setDisplayValue(displayValue + "9");
-        setOrderValue(orderValue + "9");
-        if ((displayValue.length == 1) && (displayValue == "0")) {
-          setDisplayValue ("9");
+        if (equalPressed == "=") {
+          setDisplayValue("9");
+          setOrderValue("9");
+          setEqualPressed("");
+        } else {
+          setDisplayValue(displayValue + "9");
+          setOrderValue(orderValue + "9");
+          if (displayValue.length == 1 && displayValue == "0") {
+            setDisplayValue("9");
+          }
         }
         break;
       /*************OPERATORS********************** */
       case "/":
-        if ((orderValue==="")||(orderValue==="+")||(orderValue==="-")) {
-
-        }
-        else if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")){
-          setOrderValue(orderValue.slice(0, -1)+"/");
+        if (orderValue === "" || orderValue === "+" || orderValue === "-") {
+        } else if (
+          orderValue[orderValue.length - 1] == "/" ||
+          orderValue[orderValue.length - 1] == "x" ||
+          orderValue[orderValue.length - 1] == "-" ||
+          orderValue[orderValue.length - 1] == "+"
+        ) {
+          setOrderValue(orderValue.slice(0, -1) + "/");
         } else {
           setOrderValue(orderValue + "/");
           setDisplayValue("0");
@@ -102,11 +165,14 @@ function App() {
         }
         break;
       case "X":
-        if ((orderValue==="")||(orderValue==="+")||(orderValue==="-")) {
-          
-        }
-        else if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")){
-          setOrderValue(orderValue.slice(0, -1)+"x");
+        if (orderValue === "" || orderValue === "+" || orderValue === "-") {
+        } else if (
+          orderValue[orderValue.length - 1] == "/" ||
+          orderValue[orderValue.length - 1] == "x" ||
+          orderValue[orderValue.length - 1] == "-" ||
+          orderValue[orderValue.length - 1] == "+"
+        ) {
+          setOrderValue(orderValue.slice(0, -1) + "x");
         } else {
           setOrderValue(orderValue + "x");
           setDisplayValue("0");
@@ -114,8 +180,11 @@ function App() {
         }
         break;
       case "-":
-        if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")){
-          setOrderValue(orderValue.slice(0, -1)+"-");
+        if (
+          orderValue[orderValue.length - 1] == "-" ||
+          orderValue[orderValue.length - 1] == "+"
+        ) {
+          setOrderValue(orderValue.slice(0, -1) + "-");
         } else {
           setOrderValue(orderValue + "-");
           setDisplayValue("0");
@@ -123,8 +192,13 @@ function App() {
         }
         break;
       case "+":
-        if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")){
-          setOrderValue(orderValue.slice(0, -1)+"+");
+        if (
+          orderValue[orderValue.length - 1] == "/" ||
+          orderValue[orderValue.length - 1] == "x" ||
+          orderValue[orderValue.length - 1] == "-" ||
+          orderValue[orderValue.length - 1] == "+"
+        ) {
+          setOrderValue(orderValue.slice(0, -1) + "+");
         } else {
           setOrderValue(orderValue + "+");
           setDisplayValue("0");
@@ -133,64 +207,74 @@ function App() {
         break;
       /*************Decimals************************ */
       case ".":
-        if ((orderValue[orderValue.length-1] == ".")){
-          setDisplayValue(displayValue.slice(0, -1)+".");
-          if(!(displayValue.match(/[.]/))) {
-            setDisplayValue(displayValue.slice(0, -1)+".");
-            setOrderValue(orderValue.slice(0, -1)+".");
-          }
+        if (equalPressed == "=") {
+          console.log("here");
+          setDisplayValue("0.");
+          setOrderValue("0.");
+          setEqualPressed("");
         } else {
-          if(!(displayValue.match(/[.]/))) {
-            setOrderValue(orderValue+".");
-            setDisplayValue(displayValue+".");
+          if (orderValue[orderValue.length - 1] == ".") {
+            setDisplayValue(displayValue.slice(0, -1) + ".");
+            if (!displayValue.match(/[.]/)) {
+              setDisplayValue(displayValue.slice(0, -1) + ".");
+              setOrderValue(orderValue.slice(0, -1) + ".");
+            }
+          } else {
+            if (!displayValue.match(/[.]/)) {
+              setOrderValue(orderValue + ".");
+              setDisplayValue(displayValue + ".");
+            }
           }
         }
         break;
       /**************Equal************************** */
       case "=":
-        let firstNumber = orderValue.split(/~[/+x-]+/).map(number=>parseFloat(number));
-        let numbers = orderValue.split(/[/+x-]+/).map(number=>parseFloat(number));
+        let firstNumber = orderValue
+          .split(/~[/+x-]+/)
+          .map((number) => parseFloat(number));
+        let numbers = orderValue
+          .split(/[/+x]+/)
+          .map((number) => parseFloat(number));
         numbers.shift();
         numbers.unshift(firstNumber[0]);
-        let operators=orderValue.match(/[+-/x]/g).filter(item=> item!==".");
-        if(numbers.length == operators.length) {
-          operators.shift();
-        }
+        let operators = orderValue.match(/[+/x]/g);
+        operators = orderValue.match(/[+-/x]/g).filter((item) => { return item !== "."});
+        operators = operators.filter(item=> item !== "-")
         console.log(numbers);
         console.log(operators);
-        setOrderValue(orderValue+"="+calculateResult(numbers, operators));
+        setOrderValue(orderValue + "=" + calculateResult(numbers, operators));
         setDisplayValue("0");
+        setEqualPressed("=");
         break;
     }
   };
 
   const calculateResult = (numbers, operators) => {
     let result;
-    for (let i=0;i<numbers.length-1;i=i+1) {
+    for (let i = 0; i < numbers.length - 1; i = i + 1) {
       console.log(result);
-      if (i==0) {
+      if (i == 0) {
         result = doTheOperation(numbers[0], numbers[1], operators[i]);
-      } else {    
-        result = doTheOperation(result, numbers[i+1], operators[i]);
+      } else {
+        result = doTheOperation(result, numbers[i + 1], operators[i]);
       }
     }
     console.log(result);
-    return result
+    return result;
   };
 
   const doTheOperation = (number1, number2, operation) => {
-    switch(operation) {
-      case "x": 
+    switch (operation) {
+      case "x":
         return number1 * number2;
       case "/":
         return number1 / number2;
       case "+":
         return number1 + number2;
       case "-":
-        console.log("here")
-        return number1 - number2;      
+        return number1 - number2;
     }
-  }
+  };
 
   /***************************************************************** */
   const divContainerStyle = {
