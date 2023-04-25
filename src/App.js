@@ -90,7 +90,10 @@ function App() {
         break;
       /*************OPERATORS********************** */
       case "/":
-        if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")||(orderValue[orderValue.length-1] == ".")){
+        if ((orderValue==="")||(orderValue==="+")||(orderValue==="-")) {
+
+        }
+        else if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")||(orderValue[orderValue.length-1] == ".")){
           setOrderValue(orderValue.slice(0, -1)+"/");
         } else {
           setOrderValue(orderValue + "/");
@@ -99,7 +102,10 @@ function App() {
         }
         break;
       case "X":
-        if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")||(orderValue[orderValue.length-1] == ".")){
+        if ((orderValue==="")||(orderValue==="+")||(orderValue==="-")) {
+          
+        }
+        else if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")||(orderValue[orderValue.length-1] == ".")){
           setOrderValue(orderValue.slice(0, -1)+"x");
         } else {
           setOrderValue(orderValue + "x");
@@ -146,12 +152,16 @@ function App() {
         let operators=orderValue.match(/[+-/x]/g).filter(item=> item!==".");
         console.log(numbers);
         console.log(operators);
+        setDisplayValue(calculateResult(numbers, operators));
         break;
     }
   };
 
-  const calculateResult = () => {
-    
+  const calculateResult = (numbers, operators) => {
+    let result = operators.forEach(element => {
+      
+    });
+    return result
   };
 
   /***************************************************************** */
@@ -456,7 +466,7 @@ function App() {
             id="equals"
             onClick={() => handleButtonClick("=")}
           >
-            <p>=</p>
+            <p id="equal">=</p>
           </div>
         </div>
 
