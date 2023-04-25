@@ -93,7 +93,7 @@ function App() {
         if ((orderValue==="")||(orderValue==="+")||(orderValue==="-")) {
 
         }
-        else if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")||(orderValue[orderValue.length-1] == ".")){
+        else if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")){
           setOrderValue(orderValue.slice(0, -1)+"/");
         } else {
           setOrderValue(orderValue + "/");
@@ -105,7 +105,7 @@ function App() {
         if ((orderValue==="")||(orderValue==="+")||(orderValue==="-")) {
           
         }
-        else if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")||(orderValue[orderValue.length-1] == ".")){
+        else if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")){
           setOrderValue(orderValue.slice(0, -1)+"x");
         } else {
           setOrderValue(orderValue + "x");
@@ -114,7 +114,7 @@ function App() {
         }
         break;
       case "-":
-        if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")||(orderValue[orderValue.length-1] == ".")){
+        if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")){
           setOrderValue(orderValue.slice(0, -1)+"-");
         } else {
           setOrderValue(orderValue + "-");
@@ -123,7 +123,7 @@ function App() {
         }
         break;
       case "+":
-        if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")||(orderValue[orderValue.length-1] == ".")){
+        if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")){
           setOrderValue(orderValue.slice(0, -1)+"+");
         } else {
           setOrderValue(orderValue + "+");
@@ -133,7 +133,7 @@ function App() {
         break;
       /*************Decimals************************ */
       case ".":
-        if ((orderValue[orderValue.length-1] == "/")||(orderValue[orderValue.length-1] == "x")||(orderValue[orderValue.length-1] == "-")||(orderValue[orderValue.length-1] == "+")||(orderValue[orderValue.length-1] == ".")){
+        if ((orderValue[orderValue.length-1] == ".")){
           setDisplayValue(displayValue.slice(0, -1)+".");
           if(!(displayValue.match(/[.]/))) {
             setDisplayValue(displayValue.slice(0, -1)+".");
@@ -148,21 +148,49 @@ function App() {
         break;
       /**************Equal************************** */
       case "=":
-        let numbers = orderValue.split(/[/+x-]+/).map(number=>parseFloat(number))
+        let firstNumber = orderValue.split(/~[/+x-]+/).map(number=>parseFloat(number));
+        let numbers = orderValue.split(/[/+x-]+/).map(number=>parseFloat(number));
+        numbers.shift();
+        numbers.unshift(firstNumber[0]);
         let operators=orderValue.match(/[+-/x]/g).filter(item=> item!==".");
+        if(numbers.length == operators.length) {
+          operators.shift();
+        }
         console.log(numbers);
         console.log(operators);
-        setDisplayValue(calculateResult(numbers, operators));
+        setOrderValue(orderValue+"="+calculateResult(numbers, operators));
+        setDisplayValue("0");
         break;
     }
   };
 
   const calculateResult = (numbers, operators) => {
-    let result = operators.forEach(element => {
-      
-    });
+    let result;
+    for (let i=0;i<numbers.length-1;i=i+1) {
+      console.log(result);
+      if (i==0) {
+        result = doTheOperation(numbers[0], numbers[1], operators[i]);
+      } else {    
+        result = doTheOperation(result, numbers[i+1], operators[i]);
+      }
+    }
+    console.log(result);
     return result
   };
+
+  const doTheOperation = (number1, number2, operation) => {
+    switch(operation) {
+      case "x": 
+        return number1 * number2;
+      case "/":
+        return number1 / number2;
+      case "+":
+        return number1 + number2;
+      case "-":
+        console.log("here")
+        return number1 - number2;      
+    }
+  }
 
   /***************************************************************** */
   const divContainerStyle = {
