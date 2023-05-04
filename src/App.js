@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 function App() {
   const [displayValue, setDisplayValue] = useState("0");
-  const [orderValue, setOrderValue] = useState("");
+  const [orderValue, setOrderValue] = useState("0");
   const [operator, setOperator] = useState("=");
   const [number, setNumber] = useState("0");
   const [equalPressed, setEqualPressed] = useState("");
@@ -11,8 +11,9 @@ function App() {
     switch (value) {
       case "AC":
         setDisplayValue("0");
-        setOrderValue("");
+        setOrderValue("0");
         setOperator("=");
+        setEqualPressed("");
         break;
       case "0":
         if (equalPressed == "=") {
@@ -350,7 +351,7 @@ function App() {
   /***************************************************************** */
   const divContainerStyle = {
     width: "440px",
-    height: "620px",
+    height: "580px",
     backgroundColor: "black",
     display: "flex",
     flexDirection: "column",
